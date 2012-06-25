@@ -1,0 +1,374 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C1C7B6631598429E007B2669 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C7B6621598429E007B2669 /* UIKit.framework */; };
+		C1C7B6651598429E007B2669 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C7B6641598429E007B2669 /* Foundation.framework */; };
+		C1C7B6671598429E007B2669 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C7B6661598429E007B2669 /* CoreGraphics.framework */; };
+		C1C7B66D1598429E007B2669 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B66B1598429E007B2669 /* InfoPlist.strings */; };
+		C1C7B66F1598429E007B2669 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B66E1598429E007B2669 /* main.m */; };
+		C1C7B6731598429E007B2669 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6721598429E007B2669 /* AppDelegate.m */; };
+		C1C7B6791598429E007B2669 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6771598429E007B2669 /* ViewController_iPhone.xib */; };
+		C1C7B67C1598429E007B2669 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B67A1598429E007B2669 /* ViewController_iPad.xib */; };
+		C1C7B6D815984313007B2669 /* PLCameraSheetButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D015984313007B2669 /* PLCameraSheetButton@2x.png */; };
+		C1C7B6D915984313007B2669 /* PLCameraSheetButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D115984313007B2669 /* PLCameraSheetButtonPressed@2x.png */; };
+		C1C7B6DA15984313007B2669 /* PLCameraSheetDoneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D215984313007B2669 /* PLCameraSheetDoneButton@2x.png */; };
+		C1C7B6DB15984313007B2669 /* PLCameraSheetDoneButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D315984313007B2669 /* PLCameraSheetDoneButtonPressed@2x.png */; };
+		C1C7B6DC15984313007B2669 /* PLCameraSheetButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D415984313007B2669 /* PLCameraSheetButton.png */; };
+		C1C7B6DD15984313007B2669 /* PLCameraSheetButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D515984313007B2669 /* PLCameraSheetButtonPressed.png */; };
+		C1C7B6DE15984313007B2669 /* PLCameraSheetDoneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D615984313007B2669 /* PLCameraSheetDoneButton.png */; };
+		C1C7B6DF15984313007B2669 /* PLCameraSheetDoneButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6D715984313007B2669 /* PLCameraSheetDoneButtonPressed.png */; };
+		C1C7B6E315984338007B2669 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1C7B6E215984338007B2669 /* Localizable.strings */; };
+		C1C7B6E41598445C007B2669 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6E115984328007B2669 /* ViewController.m */; };
+		C1C7B6E515984465007B2669 /* GKImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6C8159842F9007B2669 /* GKImagePicker.m */; };
+		C1C7B6E615984465007B2669 /* GKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6CA159842F9007B2669 /* GKImageCropViewController.m */; };
+		C1C7B6E715984465007B2669 /* GKImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6CC159842F9007B2669 /* GKImageCropView.m */; };
+		C1C7B6E815984465007B2669 /* GKImageCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6CE159842F9007B2669 /* GKImageCropOverlayView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C1C7B65E1598429E007B2669 /* GKImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GKImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C1C7B6621598429E007B2669 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C1C7B6641598429E007B2669 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C1C7B6661598429E007B2669 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C1C7B66A1598429E007B2669 /* GKImagePicker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GKImagePicker-Info.plist"; sourceTree = "<group>"; };
+		C1C7B66C1598429E007B2669 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C1C7B66E1598429E007B2669 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C1C7B6701598429E007B2669 /* GKImagePicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GKImagePicker-Prefix.pch"; sourceTree = "<group>"; };
+		C1C7B6711598429E007B2669 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C1C7B6721598429E007B2669 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C1C7B6781598429E007B2669 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = "<group>"; };
+		C1C7B67B1598429E007B2669 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = "<group>"; };
+		C1C7B6C7159842F9007B2669 /* GKImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GKImagePicker.h; path = ../GKClasses/GKImagePicker.h; sourceTree = "<group>"; };
+		C1C7B6C8159842F9007B2669 /* GKImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GKImagePicker.m; path = ../GKClasses/GKImagePicker.m; sourceTree = "<group>"; };
+		C1C7B6C9159842F9007B2669 /* GKImageCropViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GKImageCropViewController.h; path = ../GKClasses/GKImageCropViewController.h; sourceTree = "<group>"; };
+		C1C7B6CA159842F9007B2669 /* GKImageCropViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GKImageCropViewController.m; path = ../GKClasses/GKImageCropViewController.m; sourceTree = "<group>"; };
+		C1C7B6CB159842F9007B2669 /* GKImageCropView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GKImageCropView.h; path = ../GKClasses/GKImageCropView.h; sourceTree = "<group>"; };
+		C1C7B6CC159842F9007B2669 /* GKImageCropView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GKImageCropView.m; path = ../GKClasses/GKImageCropView.m; sourceTree = "<group>"; };
+		C1C7B6CD159842F9007B2669 /* GKImageCropOverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GKImageCropOverlayView.h; path = ../GKClasses/GKImageCropOverlayView.h; sourceTree = "<group>"; };
+		C1C7B6CE159842F9007B2669 /* GKImageCropOverlayView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = GKImageCropOverlayView.m; path = ../GKClasses/GKImageCropOverlayView.m; sourceTree = "<group>"; };
+		C1C7B6D015984313007B2669 /* PLCameraSheetButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PLCameraSheetButton@2x.png"; path = "../GKImages/PLCameraSheetButton@2x.png"; sourceTree = "<group>"; };
+		C1C7B6D115984313007B2669 /* PLCameraSheetButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PLCameraSheetButtonPressed@2x.png"; path = "../GKImages/PLCameraSheetButtonPressed@2x.png"; sourceTree = "<group>"; };
+		C1C7B6D215984313007B2669 /* PLCameraSheetDoneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PLCameraSheetDoneButton@2x.png"; path = "../GKImages/PLCameraSheetDoneButton@2x.png"; sourceTree = "<group>"; };
+		C1C7B6D315984313007B2669 /* PLCameraSheetDoneButtonPressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PLCameraSheetDoneButtonPressed@2x.png"; path = "../GKImages/PLCameraSheetDoneButtonPressed@2x.png"; sourceTree = "<group>"; };
+		C1C7B6D415984313007B2669 /* PLCameraSheetButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PLCameraSheetButton.png; path = ../GKImages/PLCameraSheetButton.png; sourceTree = "<group>"; };
+		C1C7B6D515984313007B2669 /* PLCameraSheetButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PLCameraSheetButtonPressed.png; path = ../GKImages/PLCameraSheetButtonPressed.png; sourceTree = "<group>"; };
+		C1C7B6D615984313007B2669 /* PLCameraSheetDoneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PLCameraSheetDoneButton.png; path = ../GKImages/PLCameraSheetDoneButton.png; sourceTree = "<group>"; };
+		C1C7B6D715984313007B2669 /* PLCameraSheetDoneButtonPressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PLCameraSheetDoneButtonPressed.png; path = ../GKImages/PLCameraSheetDoneButtonPressed.png; sourceTree = "<group>"; };
+		C1C7B6E015984328007B2669 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C1C7B6E115984328007B2669 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		C1C7B6E215984338007B2669 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C1C7B65B1598429E007B2669 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1C7B6631598429E007B2669 /* UIKit.framework in Frameworks */,
+				C1C7B6651598429E007B2669 /* Foundation.framework in Frameworks */,
+				C1C7B6671598429E007B2669 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C1C7B6531598429E007B2669 = {
+			isa = PBXGroup;
+			children = (
+				C1C7B6681598429E007B2669 /* GKImagePicker */,
+				C1C7B6611598429E007B2669 /* Frameworks */,
+				C1C7B65F1598429E007B2669 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C1C7B65F1598429E007B2669 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B65E1598429E007B2669 /* GKImagePicker.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C1C7B6611598429E007B2669 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B6621598429E007B2669 /* UIKit.framework */,
+				C1C7B6641598429E007B2669 /* Foundation.framework */,
+				C1C7B6661598429E007B2669 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C1C7B6681598429E007B2669 /* GKImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B6C6159842EA007B2669 /* Classes */,
+				C1C7B6711598429E007B2669 /* AppDelegate.h */,
+				C1C7B6721598429E007B2669 /* AppDelegate.m */,
+				C1C7B6E015984328007B2669 /* ViewController.h */,
+				C1C7B6E115984328007B2669 /* ViewController.m */,
+				C1C7B6771598429E007B2669 /* ViewController_iPhone.xib */,
+				C1C7B67A1598429E007B2669 /* ViewController_iPad.xib */,
+				C1C7B6691598429E007B2669 /* Supporting Files */,
+			);
+			path = GKImagePicker;
+			sourceTree = "<group>";
+		};
+		C1C7B6691598429E007B2669 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B66A1598429E007B2669 /* GKImagePicker-Info.plist */,
+				C1C7B66B1598429E007B2669 /* InfoPlist.strings */,
+				C1C7B66E1598429E007B2669 /* main.m */,
+				C1C7B6701598429E007B2669 /* GKImagePicker-Prefix.pch */,
+				C1C7B6E215984338007B2669 /* Localizable.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C1C7B6C6159842EA007B2669 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B6CF15984306007B2669 /* Images */,
+				C1C7B6C7159842F9007B2669 /* GKImagePicker.h */,
+				C1C7B6C8159842F9007B2669 /* GKImagePicker.m */,
+				C1C7B6C9159842F9007B2669 /* GKImageCropViewController.h */,
+				C1C7B6CA159842F9007B2669 /* GKImageCropViewController.m */,
+				C1C7B6CB159842F9007B2669 /* GKImageCropView.h */,
+				C1C7B6CC159842F9007B2669 /* GKImageCropView.m */,
+				C1C7B6CD159842F9007B2669 /* GKImageCropOverlayView.h */,
+				C1C7B6CE159842F9007B2669 /* GKImageCropOverlayView.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		C1C7B6CF15984306007B2669 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C1C7B6D015984313007B2669 /* PLCameraSheetButton@2x.png */,
+				C1C7B6D115984313007B2669 /* PLCameraSheetButtonPressed@2x.png */,
+				C1C7B6D215984313007B2669 /* PLCameraSheetDoneButton@2x.png */,
+				C1C7B6D315984313007B2669 /* PLCameraSheetDoneButtonPressed@2x.png */,
+				C1C7B6D415984313007B2669 /* PLCameraSheetButton.png */,
+				C1C7B6D515984313007B2669 /* PLCameraSheetButtonPressed.png */,
+				C1C7B6D615984313007B2669 /* PLCameraSheetDoneButton.png */,
+				C1C7B6D715984313007B2669 /* PLCameraSheetDoneButtonPressed.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C1C7B65D1598429E007B2669 /* GKImagePicker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1C7B67F1598429E007B2669 /* Build configuration list for PBXNativeTarget "GKImagePicker" */;
+			buildPhases = (
+				C1C7B65A1598429E007B2669 /* Sources */,
+				C1C7B65B1598429E007B2669 /* Frameworks */,
+				C1C7B65C1598429E007B2669 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GKImagePicker;
+			productName = GKImagePicker;
+			productReference = C1C7B65E1598429E007B2669 /* GKImagePicker.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C1C7B6551598429E007B2669 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "Georg Kitz";
+			};
+			buildConfigurationList = C1C7B6581598429E007B2669 /* Build configuration list for PBXProject "GKImagePicker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C1C7B6531598429E007B2669;
+			productRefGroup = C1C7B65F1598429E007B2669 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C1C7B65D1598429E007B2669 /* GKImagePicker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C1C7B65C1598429E007B2669 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1C7B66D1598429E007B2669 /* InfoPlist.strings in Resources */,
+				C1C7B6791598429E007B2669 /* ViewController_iPhone.xib in Resources */,
+				C1C7B67C1598429E007B2669 /* ViewController_iPad.xib in Resources */,
+				C1C7B6D815984313007B2669 /* PLCameraSheetButton@2x.png in Resources */,
+				C1C7B6D915984313007B2669 /* PLCameraSheetButtonPressed@2x.png in Resources */,
+				C1C7B6DA15984313007B2669 /* PLCameraSheetDoneButton@2x.png in Resources */,
+				C1C7B6DB15984313007B2669 /* PLCameraSheetDoneButtonPressed@2x.png in Resources */,
+				C1C7B6DC15984313007B2669 /* PLCameraSheetButton.png in Resources */,
+				C1C7B6DD15984313007B2669 /* PLCameraSheetButtonPressed.png in Resources */,
+				C1C7B6DE15984313007B2669 /* PLCameraSheetDoneButton.png in Resources */,
+				C1C7B6DF15984313007B2669 /* PLCameraSheetDoneButtonPressed.png in Resources */,
+				C1C7B6E315984338007B2669 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C1C7B65A1598429E007B2669 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C1C7B6E515984465007B2669 /* GKImagePicker.m in Sources */,
+				C1C7B6E615984465007B2669 /* GKImageCropViewController.m in Sources */,
+				C1C7B6E715984465007B2669 /* GKImageCropView.m in Sources */,
+				C1C7B6E815984465007B2669 /* GKImageCropOverlayView.m in Sources */,
+				C1C7B6E41598445C007B2669 /* ViewController.m in Sources */,
+				C1C7B66F1598429E007B2669 /* main.m in Sources */,
+				C1C7B6731598429E007B2669 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C1C7B66B1598429E007B2669 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C1C7B66C1598429E007B2669 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C1C7B6771598429E007B2669 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C1C7B6781598429E007B2669 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		C1C7B67A1598429E007B2669 /* ViewController_iPad.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C1C7B67B1598429E007B2669 /* en */,
+			);
+			name = ViewController_iPad.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C1C7B67D1598429E007B2669 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C1C7B67E1598429E007B2669 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C1C7B6801598429E007B2669 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GKImagePicker/GKImagePicker-Prefix.pch";
+				INFOPLIST_FILE = "GKImagePicker/GKImagePicker-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C1C7B6811598429E007B2669 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GKImagePicker/GKImagePicker-Prefix.pch";
+				INFOPLIST_FILE = "GKImagePicker/GKImagePicker-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C1C7B6581598429E007B2669 /* Build configuration list for PBXProject "GKImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1C7B67D1598429E007B2669 /* Debug */,
+				C1C7B67E1598429E007B2669 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1C7B67F1598429E007B2669 /* Build configuration list for PBXNativeTarget "GKImagePicker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C1C7B6801598429E007B2669 /* Debug */,
+				C1C7B6811598429E007B2669 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C1C7B6551598429E007B2669 /* Project object */;
+}
