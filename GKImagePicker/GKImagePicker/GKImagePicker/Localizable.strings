@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  GKImagePicker
+
+  Created by Georg Kitz on 6/1/12.
+  Copyright (c) 2012 Aurora Apps. All rights reserved.
+*/
+
+"GKIchoosePhoto" = "Choose Photo";
+"GKIuse" = "Use";
+"GKImoveAndScale" = "Move and Scale";
+"GKIcancel" = "Cancel";
+"GKIuse" = "Choose";
