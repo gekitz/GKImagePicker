@@ -29,6 +29,8 @@
 		C1C7B6E615984465007B2669 /* GKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6CA159842F9007B2669 /* GKImageCropViewController.m */; };
 		C1C7B6E715984465007B2669 /* GKImageCropView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6CC159842F9007B2669 /* GKImageCropView.m */; };
 		C1C7B6E815984465007B2669 /* GKImageCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B6CE159842F9007B2669 /* GKImageCropOverlayView.m */; };
+		D6862A9216111C68005A5C5C /* GKResizeableCropOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6862A9116111C68005A5C5C /* GKResizeableCropOverlayView.m */; };
+		D696F4FA16111C28007802E6 /* GKCropBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = D696F4F916111C28007802E6 /* GKCropBorderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,10 @@
 		C1C7B6E015984328007B2669 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C1C7B6E115984328007B2669 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C1C7B6E215984338007B2669 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		D6862A9016111C68005A5C5C /* GKResizeableCropOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKResizeableCropOverlayView.h; path = GKClasses/GKResizeableCropOverlayView.h; sourceTree = SOURCE_ROOT; };
+		D6862A9116111C68005A5C5C /* GKResizeableCropOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKResizeableCropOverlayView.m; path = GKClasses/GKResizeableCropOverlayView.m; sourceTree = SOURCE_ROOT; };
+		D696F4F816111C28007802E6 /* GKCropBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GKCropBorderView.h; path = GKClasses/GKCropBorderView.h; sourceTree = SOURCE_ROOT; };
+		D696F4F916111C28007802E6 /* GKCropBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GKCropBorderView.m; path = GKClasses/GKCropBorderView.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +151,10 @@
 				C1C7B6CC159842F9007B2669 /* GKImageCropView.m */,
 				C1C7B6CD159842F9007B2669 /* GKImageCropOverlayView.h */,
 				C1C7B6CE159842F9007B2669 /* GKImageCropOverlayView.m */,
+				D696F4F816111C28007802E6 /* GKCropBorderView.h */,
+				D696F4F916111C28007802E6 /* GKCropBorderView.m */,
+				D6862A9016111C68005A5C5C /* GKResizeableCropOverlayView.h */,
+				D6862A9116111C68005A5C5C /* GKResizeableCropOverlayView.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -244,6 +254,8 @@
 				C1C7B6E41598445C007B2669 /* ViewController.m in Sources */,
 				C1C7B66F1598429E007B2669 /* main.m in Sources */,
 				C1C7B6731598429E007B2669 /* AppDelegate.m in Sources */,
+				D696F4FA16111C28007802E6 /* GKCropBorderView.m in Sources */,
+				D6862A9216111C68005A5C5C /* GKResizeableCropOverlayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +379,7 @@
 				C1C7B6811598429E007B2669 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
