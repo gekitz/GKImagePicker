@@ -27,6 +27,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = YES;
     }
@@ -39,9 +40,10 @@
 // An empty implementation adversely affects performance during animation.
 
 - (void)drawRect:(CGRect)rect{
-    
+    NSLog(@"x: %f y: %f %f in GKOverlay", CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), self.frame.size.width);
+
     CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame);
+    CGFloat height = CGRectGetHeight(self.frame) - 54;
     
     CGFloat heightSpan = floor(height / 2 - self.cropSize.height / 2);
     CGFloat widthSpan = floor(width / 2 - self.cropSize.width  / 2);
@@ -72,3 +74,4 @@
 }
 
 @end
+

@@ -19,7 +19,7 @@
 #pragma mark -
 #pragma mark Getter/Setter
 
-@synthesize cropSize, delegate;
+@synthesize cropSize, delegate, resizeableCropArea;
 @synthesize imagePickerController = _imagePickerController;
 
 
@@ -30,11 +30,10 @@
     if (self = [super init]) {
         
         self.cropSize = CGSizeMake(320, 320);
-        
+        self.resizeableCropArea = NO;
         _imagePickerController = [[UIImagePickerController alloc] init];
         _imagePickerController.delegate = self;
         _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        
     }
     return self;
 }
@@ -74,6 +73,7 @@
     GKImageCropViewController *cropController = [[GKImageCropViewController alloc] init];
     cropController.contentSizeForViewInPopover = picker.contentSizeForViewInPopover;
     cropController.sourceImage = image;
+    cropController.resizeableCropArea = self.resizeableCropArea;
     cropController.cropSize = self.cropSize;
     cropController.delegate = self;
     [picker pushViewController:cropController animated:YES];
