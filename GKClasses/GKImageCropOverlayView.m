@@ -35,15 +35,15 @@
 }
 
 
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 
 - (void)drawRect:(CGRect)rect{
-    NSLog(@"x: %f y: %f %f in GKOverlay", CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), self.frame.size.width);
+    
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
 
     CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame) - 54;
+    CGFloat height = CGRectGetHeight(self.frame) - toolbarSize;
     
     CGFloat heightSpan = floor(height / 2 - self.cropSize.height / 2);
     CGFloat widthSpan = floor(width / 2 - self.cropSize.width  / 2);

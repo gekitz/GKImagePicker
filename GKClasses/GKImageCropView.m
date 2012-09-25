@@ -19,7 +19,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    
+
     UIView *zoomView = [self.delegate viewForZoomingInScrollView:self];
     
     CGSize boundsSize = self.bounds.size;
@@ -66,7 +66,7 @@
 }
 
 - (void)setCropSize:(CGSize)cropSize{
-    //self.cropOverlayView.cropSize = cropSize;
+    
     if (self.cropOverlayView == nil){
         if(self.resizableCropArea)
             self.cropOverlayView = [[GKResizeableCropOverlayView alloc] initWithFrame:self.bounds andInitialContentSize:CGSizeMake(cropSize.width, cropSize.height)];
@@ -92,7 +92,10 @@
         GKResizeableCropOverlayView* resizeableView = (GKResizeableCropOverlayView*)self.cropOverlayView;
         UIGraphicsBeginImageContextWithOptions(CGSizeMake(resizeableView.contentView.frame.size.width, resizeableView.contentView.frame.size.height), self.scrollView.opaque, 0.0);
         CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextTranslateCTM(ctx, -(resizeableView.contentView.frame.origin.x + self.scrollView.contentOffset.x - self.xOffset), -(resizeableView.contentView.frame.origin.y + self.scrollView.contentOffset.y - self.yOffset));
+        
+        CGFloat xPositionInScrollView = resizeableView.contentView.frame.origin.x + self.scrollView.contentOffset.x - self.xOffset;
+        CGFloat yPositionInScrollView = resizeableView.contentView.frame.origin.y + self.scrollView.contentOffset.y - self.yOffset;
+        CGContextTranslateCTM(ctx, -(xPositionInScrollView), -(yPositionInScrollView));
     }
     else {
         UIGraphicsBeginImageContextWithOptions(self.scrollView.frame.size, self.scrollView.opaque, 0.0);
@@ -115,9 +118,7 @@
 
         self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor blackColor];
-        
-        //self.scrollView = [[ScrollView alloc] initWithFrame:self.bounds ];
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, frame.size.height - 54)];
+        self.scrollView = [[ScrollView alloc] initWithFrame:self.bounds ];
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         self.scrollView.delegate = self;
@@ -150,11 +151,12 @@
         
         if (resizeableCropView.cropBorderView.frame.size.width < 60 || resizeableCropView.cropBorderView.frame.size.height < 60 )
             return [super hitTest:point withEvent:event];
+        
         CGRect innerTouchFrame = CGRectInset(resizeableCropView.cropBorderView.frame, 30, 30);
         if (CGRectContainsPoint(innerTouchFrame, point))
             return self.scrollView;
         
-        CGRect outBorderTouchFrame = CGRectInset(resizeableCropView.cropBorderView.frame, 20, 20);
+        CGRect outBorderTouchFrame = CGRectInset(resizeableCropView.cropBorderView.frame, -10, -10);
         if (CGRectContainsPoint(outBorderTouchFrame, point))
             return [super hitTest:point withEvent:event];
         
@@ -167,8 +169,9 @@
     [super layoutSubviews];
     
     CGSize size = self.cropSize;
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
     self.xOffset = floor((CGRectGetWidth(self.bounds) - size.width) * 0.5);
-    self.yOffset = floor((CGRectGetHeight(self.bounds) - 54 - size.height) * 0.5); //fixed
+    self.yOffset = floor((CGRectGetHeight(self.bounds) - toolbarSize - size.height) * 0.5); //fixed
 
     CGFloat height = self.imageToCrop.size.height;
     CGFloat width = self.imageToCrop.size.width;
@@ -194,8 +197,6 @@
     self.scrollView.frame = CGRectMake(xOffset, yOffset, size.width, size.height);
     self.scrollView.contentSize = CGSizeMake(size.width, size.height);
     self.imageView.frame = CGRectMake(0, floor((size.height - faktoredHeight) * 0.5), faktoredWidth, faktoredHeight);
-    //self.scrollView.minimumZoomScale = CGRectGetWidth(self.scrollView.frame) / CGRectGetWidth(self.imageView.frame);
-    //[self.scrollView setZoomScale:1.0];
 }
 
 #pragma mark -
@@ -203,10 +204,6 @@
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView{
     return self.imageView;
-}
-
--(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
-    return YES;
 }
 
 @end

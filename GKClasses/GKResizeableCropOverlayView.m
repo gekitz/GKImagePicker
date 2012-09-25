@@ -38,8 +38,9 @@
 
 -(void)setFrame:(CGRect)frame{
     [super setFrame:frame];
-    _contentView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2  , (self.bounds.size.height - 54) / 2 - _initialContentSize.height / 2 , _initialContentSize.width, _initialContentSize.height);
-    _cropBorderView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - 6, (self.bounds.size.height - 54) / 2 - _initialContentSize.height / 2 - 6, _initialContentSize.width + 12, _initialContentSize.height + 12);
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+    _contentView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2  , (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 , _initialContentSize.width, _initialContentSize.height);
+    _cropBorderView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - 6, (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 - 6, _initialContentSize.width + 12, _initialContentSize.height + 12);
 }
 
 
@@ -89,14 +90,15 @@
 #pragma private
 
 -(void)_addContentViews{
-    
-    _contentView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2  , (self.bounds.size.height - 54) / 2 - _initialContentSize.height / 2 , _initialContentSize.width, _initialContentSize.height)];
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+
+    _contentView = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2  , (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 , _initialContentSize.width, _initialContentSize.height)];
     _contentView.backgroundColor = [UIColor clearColor];
     self.cropSize = _contentView.frame.size;
     [self addSubview:_contentView];
    // NSLog(@"x: %f y: %f %f", CGRectGetMinX(_contentView.frame), CGRectGetMinY(_contentView.frame), self.bounds.size.width);
     
-    _cropBorderView = [[GKCropBorderView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - 6, (self.bounds.size.height - 54) / 2 - _initialContentSize.height / 2 - 6, _initialContentSize.width + 12, _initialContentSize.height + 12)];
+    _cropBorderView = [[GKCropBorderView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - 6, (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 - 6, _initialContentSize.width + 12, _initialContentSize.height + 12)];
     [self addSubview:_cropBorderView];
 }
 
@@ -147,10 +149,6 @@
     currentPoint = CGPointMake(0, _cropBorderView.bounds.size.height / 2);
     [a addObject:[NSValue valueWithCGPoint:currentPoint]];
     
-    //the last one is for checking if the user taps the middle of the view
-    //currentPoint = CGPointMake(_cropBorderView.bounds.size.width / 2, _cropBorderView.bounds.size.height / 2);
-    //[a addObject:[NSValue valueWithCGPoint:currentPoint]];
-    
     return a;
 }
 
@@ -177,6 +175,8 @@
 }
 
 -(CGRect)_preventBorderFrameFromGettingTooSmallOrTooBig:(CGRect)newFrame{
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+
     if (newFrame.size.width < 44) {
         newFrame.size.width = _cropBorderView.frame.size.width;
         newFrame.origin.x = _cropBorderView.frame.origin.x;
@@ -199,8 +199,8 @@
     if (newFrame.size.width + newFrame.origin.x > self.frame.size.width)
         newFrame.size.width = self.frame.size.width - _cropBorderView.frame.origin.x;
     
-    if (newFrame.size.height + newFrame.origin.y > self.frame.size.height - 54)
-        newFrame.size.height = self.frame.size.height  - _cropBorderView.frame.origin.y - 54;
+    if (newFrame.size.height + newFrame.origin.y > self.frame.size.height - toolbarSize)
+        newFrame.size.height = self.frame.size.height  - _cropBorderView.frame.origin.y - toolbarSize;
     return newFrame;
 }
 
