@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIButton *customCropButton;
 @property (nonatomic, strong) UIButton *normalCropButton;
 @property (nonatomic, strong) UIImageView *imgView;
+@property (nonatomic, strong) UIButton* resizableButton;
 @end
 
 @implementation ViewController
@@ -25,12 +26,12 @@
 @synthesize imgView;
 @synthesize popoverController;
 @synthesize ctr;
-@synthesize customCropButton, normalCropButton;
+@synthesize customCropButton, normalCropButton, resizableButton;
 
 - (void)showPicker:(UIButton *)btn{
     
     self.imagePicker = [[GKImagePicker alloc] init];
-    self.imagePicker.cropSize = CGSizeMake(320, 90);
+    self.imagePicker.cropSize = CGSizeMake(150, 200);
     self.imagePicker.delegate = self;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -64,12 +65,31 @@
     
 }
 
+-(void)showResizablePicker:(UIButton*)btn{
+    self.imagePicker = [[GKImagePicker alloc] init];
+    self.imagePicker.resizeableCropArea = YES;
+    self.imagePicker.cropSize = CGSizeMake(296, 300);
+    self.imagePicker.delegate = self;
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        
+        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker.imagePickerController];
+        [self.popoverController presentPopoverFromRect:btn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+    } else {
+        
+        [self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
+        
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
     self.customCropButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.customCropButton.frame = CGRectMake(20, 20, 280, 44);
+    CGFloat buttonWidth = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 220 : 280;
+    self.customCropButton.frame = CGRectMake(20, 20, buttonWidth, 44);
     [self.customCropButton setTitle:@"Custom Crop" forState:UIControlStateNormal];
     [self.customCropButton addTarget:self action:@selector(showPicker:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.customCropButton];
@@ -78,6 +98,11 @@
     [self.normalCropButton setTitle:@"Normal Crop" forState:UIControlStateNormal];
     [self.normalCropButton addTarget:self action:@selector(showNormalPicker:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.normalCropButton];
+    
+    self.resizableButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [self.resizableButton setTitle:@"Resizeable Custom Crop" forState:UIControlStateNormal];
+    [self.resizableButton addTarget:self action:@selector(showResizablePicker:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.resizableButton];
     
     self.imgView = [[UIImageView alloc] initWithFrame:CGRectZero];
     self.imgView.contentMode = UIViewContentModeScaleAspectFit;
@@ -109,12 +134,16 @@
     [super viewWillLayoutSubviews];
     
     self.normalCropButton.frame = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 
-                                   CGRectMake(320, 20, 280, 44) : 
+                                   CGRectMake(260, 20, 220, 44) :
                                    CGRectMake(20, CGRectGetMaxY(self.customCropButton.frame) + 20, 280, 44));
+    
+    self.resizableButton.frame = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ?
+                                   CGRectMake(500, 20, 220, 44) :
+                                   CGRectMake(20, CGRectGetMaxY(self.normalCropButton.frame) + 20, 280, 44));
     
     self.imgView.frame = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 
                           CGRectMake(20, 84, CGRectGetWidth(self.view.bounds) - 40, CGRectGetHeight(self.view.bounds) - 104) : 
-                          CGRectMake(20, CGRectGetMaxY(self.normalCropButton.frame) + 20, CGRectGetWidth(self.view.bounds) - 40, CGRectGetHeight(self.view.bounds) - 20 - (CGRectGetMaxY(self.normalCropButton.frame) + 20) ));
+                          CGRectMake(20, CGRectGetMaxY(self.resizableButton.frame) + 20, CGRectGetWidth(self.view.bounds) - 40, CGRectGetHeight(self.view.bounds) - 20 - (CGRectGetMaxY(self.resizableButton.frame) + 20) ));
 }
 
 # pragma mark -

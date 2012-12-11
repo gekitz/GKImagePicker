@@ -31,7 +31,7 @@
 @synthesize sourceImage, cropSize, delegate;
 @synthesize imageCropView;
 @synthesize toolbar;
-@synthesize cancelButton, useButton;
+@synthesize cancelButton, useButton, resizeableCropArea;
 
 #pragma mark -
 #pragma Private Methods
@@ -65,8 +65,8 @@
     
     self.imageCropView = [[GKImageCropView alloc] initWithFrame:self.view.bounds];
     [self.imageCropView setImageToCrop:sourceImage];
+    [self.imageCropView setResizableCropArea:self.resizeableCropArea];
     [self.imageCropView setCropSize:cropSize];
-    
     [self.view addSubview:self.imageCropView];
 }
 
