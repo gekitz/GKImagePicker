@@ -9,7 +9,7 @@
 #import "GKCropBorderView.h"
 
 #define kNumberOfBorderHandles 8
-#define kHandleDiameter 12
+#define kHandleDiameter 24
 
 
 @interface GKCropBorderView()
@@ -46,7 +46,7 @@
     for (NSValue* value in handleRectArray){
         CGRect currentHandleRect = [value CGRectValue];
         
-        CGContextSetRGBFillColor(ctx, 1., 1., 1., 1);
+        CGContextSetRGBFillColor(ctx, 1., 1., 1., 0.95);
         CGContextFillEllipseInRect(ctx, currentHandleRect);
     }
     

@@ -9,6 +9,9 @@
 #import "GKResizeableCropOverlayView.h"
 #import "GKCropBorderView.h"
 
+#define kBorderCorrectionValue 12
+
+
 @interface GKResizeableCropOverlayView(){
     CGSize _initialContentSize;
     BOOL _resizingEnabled;
@@ -40,7 +43,7 @@
     [super setFrame:frame];
     CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
     _contentView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2  , (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 , _initialContentSize.width, _initialContentSize.height);
-    _cropBorderView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - 6, (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 - 6, _initialContentSize.width + 12, _initialContentSize.height + 12);
+    _cropBorderView.frame = CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - kBorderCorrectionValue, (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 - kBorderCorrectionValue, _initialContentSize.width + kBorderCorrectionValue*2, _initialContentSize.height + kBorderCorrectionValue*2);
 }
 
 
@@ -98,7 +101,7 @@
     [self addSubview:_contentView];
    // NSLog(@"x: %f y: %f %f", CGRectGetMinX(_contentView.frame), CGRectGetMinY(_contentView.frame), self.bounds.size.width);
     
-    _cropBorderView = [[GKCropBorderView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - 6, (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 - 6, _initialContentSize.width + 12, _initialContentSize.height + 12)];
+    _cropBorderView = [[GKCropBorderView alloc] initWithFrame:CGRectMake(self.bounds.size.width / 2 - _initialContentSize.width  / 2 - kBorderCorrectionValue, (self.bounds.size.height - toolbarSize) / 2 - _initialContentSize.height / 2 - kBorderCorrectionValue, _initialContentSize.width + kBorderCorrectionValue*2, _initialContentSize.height + kBorderCorrectionValue*2)];
     [self addSubview:_cropBorderView];
 }
 
@@ -155,7 +158,7 @@
 -(void)_resizeWithTouchPoint:(CGPoint)point{
     //This is the place where all the magic happends
     //prevent goint offscreen...
-    CGFloat border = 12;
+    CGFloat border = kBorderCorrectionValue*2;
     point.x = point.x < border ? border : point.x;
     point.y = point.y < border ? border : point.y;
     point.x = point.x > self.superview.bounds.size.width - border ? point.x = self.superview.bounds.size.width - border : point.x;
@@ -177,11 +180,11 @@
 -(CGRect)_preventBorderFrameFromGettingTooSmallOrTooBig:(CGRect)newFrame{
     CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
 
-    if (newFrame.size.width < 44) {
+    if (newFrame.size.width < 64) {
         newFrame.size.width = _cropBorderView.frame.size.width;
         newFrame.origin.x = _cropBorderView.frame.origin.x;
     }
-    if (newFrame.size.height < 44) {
+    if (newFrame.size.height < 64) {
         newFrame.size.height = _cropBorderView.frame.size.height;
         newFrame.origin.y = _cropBorderView.frame.origin.y;
     }
@@ -206,7 +209,7 @@
 
 -(void)_resetFramesToThisOne:(CGRect)frame{
     _cropBorderView.frame = frame;
-    _contentView.frame = CGRectInset(frame, 6, 6);
+    _contentView.frame = CGRectInset(frame, kBorderCorrectionValue, kBorderCorrectionValue);
     self.cropSize = _contentView.frame.size;
     [self setNeedsDisplay];
     [_cropBorderView setNeedsDisplay];

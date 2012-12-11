@@ -146,8 +146,9 @@
         return self.scrollView;
 
     GKResizeableCropOverlayView* resizeableCropView = (GKResizeableCropOverlayView*)self.cropOverlayView;
-   
-    if (CGRectContainsPoint(resizeableCropView.cropBorderView.frame, point)){
+    
+    CGRect outerFrame = CGRectInset(resizeableCropView.cropBorderView.frame, -10 , -10);
+    if (CGRectContainsPoint(outerFrame, point)){
         
         if (resizeableCropView.cropBorderView.frame.size.width < 60 || resizeableCropView.cropBorderView.frame.size.height < 60 )
             return [super hitTest:point withEvent:event];

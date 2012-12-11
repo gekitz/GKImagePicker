@@ -68,7 +68,7 @@
 -(void)showResizablePicker:(UIButton*)btn{
     self.imagePicker = [[GKImagePicker alloc] init];
     self.imagePicker.resizeableCropArea = YES;
-    self.imagePicker.cropSize = CGSizeMake(300, 394);
+    self.imagePicker.cropSize = CGSizeMake(296, 300);
     self.imagePicker.delegate = self;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
