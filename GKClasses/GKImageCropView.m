@@ -8,6 +8,7 @@
 
 #import "GKImageCropView.h"
 #import "GKImageCropOverlayView.h"
+#import "GKResizeableCropOverlayView.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -18,7 +19,7 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    
+
     UIView *zoomView = [self.delegate viewForZoomingInScrollView:self];
     
     CGSize boundsSize = self.bounds.size;
@@ -45,6 +46,8 @@
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) GKImageCropOverlayView *cropOverlayView;
+@property (nonatomic, assign) CGFloat xOffset;
+@property (nonatomic, assign) CGFloat yOffset;
 @end
 
 @implementation GKImageCropView
@@ -52,7 +55,7 @@
 #pragma mark -
 #pragma Getter/Setter
 
-@synthesize scrollView, imageView, cropOverlayView;
+@synthesize scrollView, imageView, cropOverlayView, resizableCropArea, xOffset, yOffset;
 
 - (void)setImageToCrop:(UIImage *)imageToCrop{
     self.imageView.image = imageToCrop;
@@ -63,6 +66,15 @@
 }
 
 - (void)setCropSize:(CGSize)cropSize{
+    
+    if (self.cropOverlayView == nil){
+        if(self.resizableCropArea)
+            self.cropOverlayView = [[GKResizeableCropOverlayView alloc] initWithFrame:self.bounds andInitialContentSize:CGSizeMake(cropSize.width, cropSize.height)];
+        else
+            self.cropOverlayView = [[GKImageCropOverlayView alloc] initWithFrame:self.bounds];
+        
+        [self addSubview:self.cropOverlayView];
+    }
     self.cropOverlayView.cropSize = cropSize;
 }
 
@@ -76,14 +88,23 @@
 - (UIImage *)croppedImage{
     
     //renders the the zoomed area into the cropped image
-    UIGraphicsBeginImageContextWithOptions(self.scrollView.frame.size, self.scrollView.opaque, 0.0);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(ctx, -self.scrollView.contentOffset.x, -self.scrollView.contentOffset.y);
-    
+    if (self.resizableCropArea){
+        GKResizeableCropOverlayView* resizeableView = (GKResizeableCropOverlayView*)self.cropOverlayView;
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(resizeableView.contentView.frame.size.width, resizeableView.contentView.frame.size.height), self.scrollView.opaque, 0.0);
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        CGFloat xPositionInScrollView = resizeableView.contentView.frame.origin.x + self.scrollView.contentOffset.x - self.xOffset;
+        CGFloat yPositionInScrollView = resizeableView.contentView.frame.origin.y + self.scrollView.contentOffset.y - self.yOffset;
+        CGContextTranslateCTM(ctx, -(xPositionInScrollView), -(yPositionInScrollView));
+    }
+    else {
+        UIGraphicsBeginImageContextWithOptions(self.scrollView.frame.size, self.scrollView.opaque, 0.0);
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextTranslateCTM(ctx, -self.scrollView.contentOffset.x, -self.scrollView.contentOffset.y);
+    }
     [self.scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    
     return viewImage;
 }
 
@@ -97,8 +118,7 @@
 
         self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor blackColor];
-        
-        self.scrollView = [[ScrollView alloc] initWithFrame:self.bounds];
+        self.scrollView = [[ScrollView alloc] initWithFrame:self.bounds ];
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
         self.scrollView.delegate = self;
@@ -107,13 +127,11 @@
         self.scrollView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.scrollView];
         
-        self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        self.imageView = [[UIImageView alloc] initWithFrame:self.scrollView.frame];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.backgroundColor = [UIColor blackColor];
         [self.scrollView addSubview:self.imageView];
-        
-        self.cropOverlayView = [[GKImageCropOverlayView alloc] initWithFrame:self.bounds];
-        [self addSubview:self.cropOverlayView];
+    
         
         self.scrollView.minimumZoomScale = CGRectGetWidth(self.scrollView.frame) / CGRectGetWidth(self.imageView.frame);
         self.scrollView.maximumZoomScale = 4.0;
@@ -124,6 +142,27 @@
 
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
+    if (!self.resizableCropArea)
+        return self.scrollView;
+
+    GKResizeableCropOverlayView* resizeableCropView = (GKResizeableCropOverlayView*)self.cropOverlayView;
+    
+    CGRect outerFrame = CGRectInset(resizeableCropView.cropBorderView.frame, -10 , -10);
+    if (CGRectContainsPoint(outerFrame, point)){
+        
+        if (resizeableCropView.cropBorderView.frame.size.width < 60 || resizeableCropView.cropBorderView.frame.size.height < 60 )
+            return [super hitTest:point withEvent:event];
+        
+        CGRect innerTouchFrame = CGRectInset(resizeableCropView.cropBorderView.frame, 30, 30);
+        if (CGRectContainsPoint(innerTouchFrame, point))
+            return self.scrollView;
+        
+        CGRect outBorderTouchFrame = CGRectInset(resizeableCropView.cropBorderView.frame, -10, -10);
+        if (CGRectContainsPoint(outBorderTouchFrame, point))
+            return [super hitTest:point withEvent:event];
+        
+        return [super hitTest:point withEvent:event];
+    }
     return self.scrollView;
 }
 
@@ -131,8 +170,9 @@
     [super layoutSubviews];
     
     CGSize size = self.cropSize;
-    CGFloat xOffset = floor((CGRectGetWidth(self.bounds) - size.width) * 0.5);
-    CGFloat yOffset = floor((CGRectGetHeight(self.bounds) - size.height) * 0.5);
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+    self.xOffset = floor((CGRectGetWidth(self.bounds) - size.width) * 0.5);
+    self.yOffset = floor((CGRectGetHeight(self.bounds) - toolbarSize - size.height) * 0.5); //fixed
 
     CGFloat height = self.imageToCrop.size.height;
     CGFloat width = self.imageToCrop.size.width;

@@ -27,6 +27,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+
         self.backgroundColor = [UIColor clearColor];
         self.userInteractionEnabled = YES;
     }
@@ -34,14 +35,15 @@
 }
 
 
-
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 
 - (void)drawRect:(CGRect)rect{
     
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+
     CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame);
+    CGFloat height = CGRectGetHeight(self.frame) - toolbarSize;
     
     CGFloat heightSpan = floor(height / 2 - self.cropSize.height / 2);
     CGFloat widthSpan = floor(width / 2 - self.cropSize.width  / 2);
@@ -72,3 +74,4 @@
 }
 
 @end
+
