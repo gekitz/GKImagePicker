@@ -23,6 +23,12 @@ This code results into the following controller + crop area:
 
 ![Sample Crop Image](https://dl.dropbox.com/u/311618/GKImageCrop/IMG_1509.PNG)
 
+It's even possible to let the user adjust the crop area (thanks to [@pathonhauser](http://www.twitter.com/pathonhauser) for this pull request) by setting one additional property:
+	
+	self.imagePicker.resizeableCropArea = YES;
+     
+This code results into the following controller + adjustable crop area:
+![Sample Crop Image Adjustable](https://dl.dropbox.com/u/311618/GKImageCrop/IMG_2299.PNG)
 ### License
 Under MIT. See license file for details.
 
