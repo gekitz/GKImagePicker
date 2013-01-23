@@ -118,7 +118,9 @@
     
     CGContextDrawLinearGradient(ctx, gradient, CGPointMake(0, 0), CGPointMake(0, 54), kCGImageAlphaNoneSkipFirst);
     
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();   
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+	
+	CGGradientRelease(gradient);
     UIGraphicsEndImageContext();
     
     return viewImage;
