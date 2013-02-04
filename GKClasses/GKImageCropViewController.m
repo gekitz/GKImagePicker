@@ -173,9 +173,12 @@
     [self _setupNavigationBar];
     [self _setupCropView];
     [self _setupToolbar];
+}
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [self.navigationController setNavigationBarHidden:YES];
+      [self.navigationController setNavigationBarHidden:YES animated:animated];
     }
 }
 
