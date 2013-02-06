@@ -343,11 +343,13 @@
 		C1C7B6801598429E007B2669 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Charles Bedrosian (FF9586J887)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GKImagePicker/GKImagePicker-Prefix.pch";
 				INFOPLIST_FILE = "GKImagePicker/GKImagePicker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2989E08F-164F-4EF6-BD14-A7C63BFA126B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -355,11 +357,13 @@
 		C1C7B6811598429E007B2669 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Charles Bedrosian (FF9586J887)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GKImagePicker/GKImagePicker-Prefix.pch";
 				INFOPLIST_FILE = "GKImagePicker/GKImagePicker-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "2989E08F-164F-4EF6-BD14-A7C63BFA126B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

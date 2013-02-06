@@ -49,6 +49,7 @@
 
 
 - (void)_setupNavigationBar{
+    self.navigationController.navigationBarHidden = NO;
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
                                                                                           target:self 
