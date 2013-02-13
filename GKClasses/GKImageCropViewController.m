@@ -176,7 +176,9 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [self.navigationController setNavigationBarHidden:YES];
-    }
+    } else {
+		[self.navigationController setNavigationBarHidden:NO];
+	}
 }
 
 - (void)viewDidUnload{
