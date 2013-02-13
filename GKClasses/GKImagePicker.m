@@ -68,11 +68,11 @@
     
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
 
     GKImageCropViewController *cropController = [[GKImageCropViewController alloc] init];
     cropController.contentSizeForViewInPopover = picker.contentSizeForViewInPopover;
-    cropController.sourceImage = image;
+    cropController.sourceImage = [info objectForKey:UIImagePickerControllerOriginalImage];
     cropController.resizeableCropArea = self.resizeableCropArea;
     cropController.cropSize = self.cropSize;
     cropController.delegate = self;

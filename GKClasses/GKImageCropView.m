@@ -98,7 +98,9 @@
         CGContextTranslateCTM(ctx, -(xPositionInScrollView), -(yPositionInScrollView));
     }
     else {
-        UIGraphicsBeginImageContextWithOptions(self.scrollView.frame.size, self.scrollView.opaque, 0.0);
+		
+		CGFloat scale = self.scrollView.maximumZoomScale / self.scrollView.zoomScale;
+        UIGraphicsBeginImageContextWithOptions(self.scrollView.frame.size, self.scrollView.opaque, scale);
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         CGContextTranslateCTM(ctx, -self.scrollView.contentOffset.x, -self.scrollView.contentOffset.y);
     }
@@ -134,7 +136,7 @@
     
         
         self.scrollView.minimumZoomScale = CGRectGetWidth(self.scrollView.frame) / CGRectGetWidth(self.imageView.frame);
-        self.scrollView.maximumZoomScale = 4.0;
+        self.scrollView.maximumZoomScale = 20.0;
         [self.scrollView setZoomScale:1.0];
     }
     return self;
