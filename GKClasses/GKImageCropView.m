@@ -12,6 +12,13 @@
 
 #import <QuartzCore/QuartzCore.h>
 
+#define rad(angle) ((angle) / 180.0 * M_PI)
+
+static CGRect GKScaleRect(CGRect rect, CGFloat scale)
+{
+	return CGRectMake(rect.origin.x * scale, rect.origin.y * scale, rect.size.width * scale, rect.size.height * scale);
+}
+
 @interface ScrollView : UIScrollView
 @end
 
@@ -48,6 +55,8 @@
 @property (nonatomic, strong) GKImageCropOverlayView *cropOverlayView;
 @property (nonatomic, assign) CGFloat xOffset;
 @property (nonatomic, assign) CGFloat yOffset;
+
+- (CGAffineTransform)_orientationTransformedRectOfImage:(UIImage *)image;
 @end
 
 @implementation GKImageCropView
@@ -96,18 +105,55 @@
         CGFloat xPositionInScrollView = resizeableView.contentView.frame.origin.x + self.scrollView.contentOffset.x - self.xOffset;
         CGFloat yPositionInScrollView = resizeableView.contentView.frame.origin.y + self.scrollView.contentOffset.y - self.yOffset;
         CGContextTranslateCTM(ctx, -(xPositionInScrollView), -(yPositionInScrollView));
+		
+		[self.scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
+		UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+		UIGraphicsEndImageContext();
+		return viewImage;
     }
     else {
 		
-		CGFloat scale = self.scrollView.maximumZoomScale / self.scrollView.zoomScale;
-        UIGraphicsBeginImageContextWithOptions(self.scrollView.frame.size, self.scrollView.opaque, scale);
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextTranslateCTM(ctx, -self.scrollView.contentOffset.x, -self.scrollView.contentOffset.y);
+		//scaled width/height in regards of real width to crop width
+		CGFloat scaleWidth = self.imageToCrop.size.width / self.cropSize.width;
+		CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
+		CGFloat scale = MAX(scaleWidth, scaleHeight);
+		
+		//extract visible rect from scrollview and scale it 
+		CGRect visibleRect = [scrollView convertRect:scrollView.bounds toView:imageView];
+		visibleRect = GKScaleRect(visibleRect, scale);
+		
+		//transform visible rect to image orientation
+		CGAffineTransform rectTransform = [self _orientationTransformedRectOfImage:self.imageToCrop];
+		visibleRect = CGRectApplyAffineTransform(visibleRect, rectTransform);
+		
+		//finally crop image
+		CGImageRef imageRef = CGImageCreateWithImageInRect([self.imageToCrop CGImage], visibleRect);
+		UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.imageToCrop.scale orientation:self.imageToCrop.imageOrientation];
+		CGImageRelease(imageRef);
+		
+		return result;
     }
-    [self.scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return viewImage;
+}
+
+- (CGAffineTransform)_orientationTransformedRectOfImage:(UIImage *)img
+{
+	CGAffineTransform rectTransform;
+	switch (img.imageOrientation)
+	{
+		case UIImageOrientationLeft:
+			rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(rad(90)), 0, -img.size.height);
+			break;
+		case UIImageOrientationRight:
+			rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(rad(-90)), -img.size.width, 0);
+			break;
+		case UIImageOrientationDown:
+			rectTransform = CGAffineTransformTranslate(CGAffineTransformMakeRotation(rad(-180)), -img.size.width, -img.size.height);
+			break;
+		default:
+			rectTransform = CGAffineTransformIdentity;
+	};
+	
+	return CGAffineTransformScale(rectTransform, img.scale, img.scale);
 }
 
 #pragma mark -
@@ -126,12 +172,12 @@
         self.scrollView.delegate = self;
         self.scrollView.clipsToBounds = NO;
         self.scrollView.decelerationRate = 0.0; 
-        self.scrollView.backgroundColor = [UIColor clearColor];
+        self.scrollView.backgroundColor = [UIColor greenColor];
         [self addSubview:self.scrollView];
         
         self.imageView = [[UIImageView alloc] initWithFrame:self.scrollView.frame];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.imageView.backgroundColor = [UIColor blackColor];
+        self.imageView.backgroundColor = [UIColor greenColor];
         [self.scrollView addSubview:self.imageView];
     
         

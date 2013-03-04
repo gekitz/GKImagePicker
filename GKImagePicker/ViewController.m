@@ -31,7 +31,7 @@
 - (void)showPicker:(UIButton *)btn{
     
     self.imagePicker = [[GKImagePicker alloc] init];
-    self.imagePicker.cropSize = CGSizeMake(320, 320);
+    self.imagePicker.cropSize = CGSizeMake(280, 280);
     self.imagePicker.delegate = self;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
@@ -95,7 +95,7 @@
     [self.view addSubview:self.customCropButton];
     
     self.normalCropButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [self.normalCropButton setTitle:@"Normal Crop" forState:UIControlStateNormal];
+    [self.normalCropButton setTitle:@"Apple's Build In Crop" forState:UIControlStateNormal];
     [self.normalCropButton addTarget:self action:@selector(showNormalPicker:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.normalCropButton];
     
