@@ -172,12 +172,12 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
         self.scrollView.delegate = self;
         self.scrollView.clipsToBounds = NO;
         self.scrollView.decelerationRate = 0.0; 
-        self.scrollView.backgroundColor = [UIColor greenColor];
+        self.scrollView.backgroundColor = [UIColor clearColor];
         [self addSubview:self.scrollView];
         
         self.imageView = [[UIImageView alloc] initWithFrame:self.scrollView.frame];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.imageView.backgroundColor = [UIColor greenColor];
+        self.imageView.backgroundColor = [UIColor blackColor];
         [self.scrollView addSubview:self.imageView];
     
         
