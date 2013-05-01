@@ -38,6 +38,16 @@
     return self;
 }
 
+#pragma mark - Properties
+
+- (void)setSourceType:(UIImagePickerControllerSourceType)sourceType{
+    if (_sourceType == sourceType) {
+        return;
+    }
+    _sourceType = sourceType;
+    self.imagePickerController.sourceType = sourceType;
+}
+
 # pragma mark -
 # pragma mark Private Methods
 
