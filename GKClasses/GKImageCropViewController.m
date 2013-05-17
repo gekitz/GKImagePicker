@@ -62,7 +62,7 @@
 
 
 - (void)_setupCropView{
-    
+
     self.imageCropView = [[GKImageCropView alloc] initWithFrame:self.view.bounds];
     [self.imageCropView setImageToCrop:sourceImage];
     [self.imageCropView setResizableCropArea:self.resizeableCropArea];
@@ -171,7 +171,6 @@
     self.title = NSLocalizedString(@"GKIchoosePhoto", @"");
 
     [self _setupNavigationBar];
-    [self _setupCropView];
     [self _setupToolbar];
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -197,5 +196,8 @@
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+-(void)viewDidAppear:(BOOL)animated{
+  [super viewDidAppear:animated];
+  [self _setupCropView];
+}
 @end
