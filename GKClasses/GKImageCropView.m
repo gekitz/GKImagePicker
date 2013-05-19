@@ -116,9 +116,19 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 		//scaled width/height in regards of real width to crop width
 		CGFloat scaleWidth = self.imageToCrop.size.width / self.cropSize.width;
 		CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
-		CGFloat scale = MAX(scaleWidth, scaleHeight);
+		CGFloat scale = 0.0f;
 		
-		//extract visible rect from scrollview and scale it 
+		if (self.cropSize.width > self.cropSize.height) {
+			scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
+					 MAX(scaleWidth, scaleHeight) :
+					 MIN(scaleWidth, scaleHeight));
+		}else{
+			scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
+					 MIN(scaleWidth, scaleHeight) :
+					 MAX(scaleWidth, scaleHeight));
+		}
+		
+		//extract visible rect from scrollview and scale it
 		CGRect visibleRect = [scrollView convertRect:scrollView.bounds toView:imageView];
 		visibleRect = GKScaleRect(visibleRect, scale);
 		
