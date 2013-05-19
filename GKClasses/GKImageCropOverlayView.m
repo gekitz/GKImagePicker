@@ -67,8 +67,8 @@
         [[UIColor whiteColor] set];
         [NSLocalizedString(@"GKImoveAndScale", @"") drawInRect:CGRectMake(10, (height - heightSpan) + (heightSpan / 2 - 20 / 2) , width - 20, 20) 
                                                    withFont:[UIFont boldSystemFontOfSize:20] 
-                                              lineBreakMode:UILineBreakModeTailTruncation 
-                                                  alignment:UITextAlignmentCenter];
+                                              lineBreakMode:NSLineBreakByTruncatingTail
+                                                  alignment:NSTextAlignmentCenter];
         
     }
 }
