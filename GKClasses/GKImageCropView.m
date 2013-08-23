@@ -56,6 +56,8 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 @property (nonatomic, assign) CGFloat xOffset;
 @property (nonatomic, assign) CGFloat yOffset;
 
+- (CGRect)_getVisibleRectForResizeableCropArea;
+- (CGRect)_getVisibleRectForCropArea;
 - (CGAffineTransform)_orientationTransformedRectOfImage:(UIImage *)image;
 @end
 
@@ -96,54 +98,53 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 
 - (UIImage *)croppedImage{
     
-    //renders the the zoomed area into the cropped image
-    if (self.resizableCropArea){
-        GKResizeableCropOverlayView* resizeableView = (GKResizeableCropOverlayView*)self.cropOverlayView;
-        UIGraphicsBeginImageContextWithOptions(CGSizeMake(resizeableView.contentView.frame.size.width, resizeableView.contentView.frame.size.height), self.scrollView.opaque, 0.0);
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        
-        CGFloat xPositionInScrollView = resizeableView.contentView.frame.origin.x + self.scrollView.contentOffset.x - self.xOffset;
-        CGFloat yPositionInScrollView = resizeableView.contentView.frame.origin.y + self.scrollView.contentOffset.y - self.yOffset;
-        CGContextTranslateCTM(ctx, -(xPositionInScrollView), -(yPositionInScrollView));
-		
-		[self.scrollView.layer renderInContext:UIGraphicsGetCurrentContext()];
-		UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-		UIGraphicsEndImageContext();
-		return viewImage;
-    }
-    else {
-		
-		//scaled width/height in regards of real width to crop width
-		CGFloat scaleWidth = self.imageToCrop.size.width / self.cropSize.width;
-		CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
-		CGFloat scale = 0.0f;
-		
-		if (self.cropSize.width > self.cropSize.height) {
-			scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
-					 MAX(scaleWidth, scaleHeight) :
-					 MIN(scaleWidth, scaleHeight));
-		}else{
-			scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
-					 MIN(scaleWidth, scaleHeight) :
-					 MAX(scaleWidth, scaleHeight));
-		}
-		
-		//extract visible rect from scrollview and scale it
-		CGRect visibleRect = [scrollView convertRect:scrollView.bounds toView:imageView];
-		visibleRect = GKScaleRect(visibleRect, scale);
-		
-		//transform visible rect to image orientation
-		CGAffineTransform rectTransform = [self _orientationTransformedRectOfImage:self.imageToCrop];
-		visibleRect = CGRectApplyAffineTransform(visibleRect, rectTransform);
-		
-		//finally crop image
-		CGImageRef imageRef = CGImageCreateWithImageInRect([self.imageToCrop CGImage], visibleRect);
-		UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.imageToCrop.scale orientation:self.imageToCrop.imageOrientation];
-		CGImageRelease(imageRef);
-		
-		return result;
-    }
+    //Calculate rect that needs to be cropped
+    CGRect visibleRect = self.resizableCropArea ? [self _getVisibleRectForResizeableCropArea] : [self _getVisibleRectForCropArea];
+    
+    //transform visible rect to image orientation
+    CGAffineTransform rectTransform = [self _orientationTransformedRectOfImage:self.imageToCrop];
+    visibleRect = CGRectApplyAffineTransform(visibleRect, rectTransform);
+    
+    //finally crop image
+    CGImageRef imageRef = CGImageCreateWithImageInRect([self.imageToCrop CGImage], visibleRect);
+    UIImage *result = [UIImage imageWithCGImage:imageRef scale:self.imageToCrop.scale orientation:self.imageToCrop.imageOrientation];
+    CGImageRelease(imageRef);
+    return result;
 }
+
+- (CGRect)_getVisibleRectForResizeableCropArea{
+    GKResizeableCropOverlayView* resizeableView = (GKResizeableCropOverlayView*)self.cropOverlayView;
+    
+    //first of all, get the size scale by taking a look at the real image dimensions. Here it doesn't matter if you take
+    //the width or the hight of the image, because it will always be scaled in the exact same proportion of the real image
+    CGFloat sizeScale = self.imageView.image.size.width / self.imageView.frame.size.width;
+    sizeScale *= self.scrollView.zoomScale;
+    
+    //then get the postion of the cropping rect inside the image
+    CGRect visibleRect = [resizeableView.contentView convertRect:resizeableView.contentView.bounds toView:imageView];
+    return visibleRect = GKScaleRect(visibleRect, sizeScale);
+}
+
+-(CGRect)_getVisibleRectForCropArea{
+    //scaled width/height in regards of real width to crop width
+    CGFloat scaleWidth = self.imageToCrop.size.width / self.cropSize.width;
+    CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
+    CGFloat scale = 0.0f;
+    
+    if (self.cropSize.width > self.cropSize.height) {
+        scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
+                 MAX(scaleWidth, scaleHeight) :
+                 MIN(scaleWidth, scaleHeight));
+    }else{
+        scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
+                 MIN(scaleWidth, scaleHeight) :
+                 MAX(scaleWidth, scaleHeight));
+    }
+    //extract visible rect from scrollview and scale it
+    CGRect visibleRect = [scrollView convertRect:scrollView.bounds toView:imageView];
+    return visibleRect = GKScaleRect(visibleRect, scale);
+}
+
 
 - (CGAffineTransform)_orientationTransformedRectOfImage:(UIImage *)img
 {
