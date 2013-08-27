@@ -56,8 +56,8 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 @property (nonatomic, assign) CGFloat xOffset;
 @property (nonatomic, assign) CGFloat yOffset;
 
-- (CGRect)_getVisibleRectForResizeableCropArea;
-- (CGRect)_getVisibleRectForCropArea;
+- (CGRect)_calcVisibleRectForResizeableCropArea;
+- (CGRect)_calcVisibleRectForCropArea;
 - (CGAffineTransform)_orientationTransformedRectOfImage:(UIImage *)image;
 @end
 
@@ -99,7 +99,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 - (UIImage *)croppedImage{
     
     //Calculate rect that needs to be cropped
-    CGRect visibleRect = self.resizableCropArea ? [self _getVisibleRectForResizeableCropArea] : [self _getVisibleRectForCropArea];
+    CGRect visibleRect = self.resizableCropArea ? [self _calcVisibleRectForResizeableCropArea] : [self _calcVisibleRectForCropArea];
     
     //transform visible rect to image orientation
     CGAffineTransform rectTransform = [self _orientationTransformedRectOfImage:self.imageToCrop];
@@ -112,7 +112,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     return result;
 }
 
-- (CGRect)_getVisibleRectForResizeableCropArea{
+- (CGRect)_calcVisibleRectForResizeableCropArea{
     GKResizeableCropOverlayView* resizeableView = (GKResizeableCropOverlayView*)self.cropOverlayView;
     
     //first of all, get the size scale by taking a look at the real image dimensions. Here it doesn't matter if you take
@@ -125,7 +125,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     return visibleRect = GKScaleRect(visibleRect, sizeScale);
 }
 
--(CGRect)_getVisibleRectForCropArea{
+-(CGRect)_calcVisibleRectForCropArea{
     //scaled width/height in regards of real width to crop width
     CGFloat scaleWidth = self.imageToCrop.size.width / self.cropSize.width;
     CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
