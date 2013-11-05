@@ -9,6 +9,10 @@
 #import "GKImageCropViewController.h"
 #import "GKImageCropView.h"
 
+#ifndef NSFoundationVersionNumber_iOS_6_1
+#define NSFoundationVersionNumber_iOS_6_1 993.00
+#endif
+
 @interface GKImageCropViewController ()
 
 @property (nonatomic, strong) GKImageCropView *imageCropView;
