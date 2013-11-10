@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define TOOLBAR_HEIGHT 54.f
+#define TOOLBAR_HEIGHT 72.f
 
 @interface GKImageCropView : UIView
 
