@@ -41,10 +41,8 @@
 
 - (void)drawRect:(CGRect)rect{
     
-    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : TOOLBAR_HEIGHT;
-
     CGFloat width = CGRectGetWidth(self.frame);
-    CGFloat height = CGRectGetHeight(self.frame) - toolbarSize;
+    CGFloat height = CGRectGetHeight(self.frame);
     
     CGFloat heightSpan = floor(height / 2 - self.cropSize.height / 2);
     CGFloat widthSpan = floor(width / 2 - self.cropSize.width  / 2);
