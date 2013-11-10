@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "GKImagePicker.h"
-
+                                                                                                                                               
 @interface ViewController ()<GKImagePickerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, strong) GKImagePicker *imagePicker;
 @property (nonatomic, strong) UIPopoverController *popoverController;
