@@ -7,6 +7,7 @@
 //
 
 #import "GKImageCropOverlayView.h"
+#import "GKImageCropView.h"
 
 @interface GKImageCropOverlayView ()
 @property (nonatomic, strong) UIToolbar *toolbar;
@@ -40,7 +41,7 @@
 
 - (void)drawRect:(CGRect)rect{
     
-    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : 54;
+    CGFloat toolbarSize = UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad ? 0 : TOOLBAR_HEIGHT;
 
     CGFloat width = CGRectGetWidth(self.frame);
     CGFloat height = CGRectGetHeight(self.frame) - toolbarSize;
