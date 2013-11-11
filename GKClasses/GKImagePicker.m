@@ -10,8 +10,11 @@
 
 #import "GKImageCropViewController.h"
 
-@interface GKImagePicker ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, GKImageCropControllerDelegate>
-@property (nonatomic, strong, readwrite) UIImagePickerController *imagePickerController;
+@interface GKImagePicker ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate, GKImageCropControllerDelegate, UIActionSheetDelegate>
+@property (nonatomic, weak) UIViewController *presentingViewController;
+@property (nonatomic, weak) UIView *popoverView;
+@property (nonatomic, strong) UIPopoverController *popoverController;
+@property (nonatomic, strong) UIImagePickerController *imagePickerController;
 - (void)_hideController;
 @end
 
@@ -21,8 +24,6 @@
 #pragma mark Getter/Setter
 
 @synthesize cropSize, delegate, resizeableCropArea;
-@synthesize imagePickerController = _imagePickerController;
-
 
 #pragma mark -
 #pragma mark Init Methods
@@ -32,9 +33,6 @@
         
         self.cropSize = CGSizeMake(320, 320);
         self.resizeableCropArea = NO;
-        _imagePickerController = [[UIImagePickerController alloc] init];
-        _imagePickerController.delegate = self;
-        _imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     }
     return self;
 }
@@ -43,13 +41,12 @@
 # pragma mark Private Methods
 
 - (void)_hideController{
-    
-    if (![_imagePickerController.presentedViewController isKindOfClass:[UIPopoverController class]]){
-        
+    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
+        [self.popoverController dismissPopoverAnimated:YES];
+    } else {
         [self.imagePickerController dismissViewControllerAnimated:YES completion:nil];
-        
-    } 
-    
+    }
+
 }
 
 #pragma mark -
@@ -87,7 +84,90 @@
 - (void)imageCropController:(GKImageCropViewController *)imageCropController didFinishWithCroppedImage:(UIImage *)croppedImage{
     
     if ([self.delegate respondsToSelector:@selector(imagePicker:pickedImage:)]) {
-        [self.delegate imagePicker:self pickedImage:croppedImage];   
+        [self _hideController];
+        [self.delegate imagePicker:self pickedImage:croppedImage];
+    }
+}
+
+
+#pragma mark -
+#pragma mark - Action Sheet and Image Pickers
+
+- (void)showActionSheetOnViewController:(UIViewController *)viewController onPopoverFromView:(UIView *)popoverView
+{
+    self.presentingViewController = viewController;
+    self.popoverView = popoverView;
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+                                                             delegate:(id)self
+                                                    cancelButtonTitle:NSLocalizedString(@"GKIcancel", @"")
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:NSLocalizedString(@"GKIfromCamera", @""), NSLocalizedString(@"GKIfromLibrary", @""), nil];
+    actionSheet.delegate = self;
+    
+    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
+        [actionSheet showFromRect:self.popoverView.frame inView:self.presentingViewController.view animated:YES];
+    } else {
+        [actionSheet showInView:self.presentingViewController.view];
+    }
+}
+
+- (void)presentImagePickerController
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        
+        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePickerController];
+        [self.popoverController presentPopoverFromRect:self.popoverView.frame
+                                                inView:self.presentingViewController.view
+                              permittedArrowDirections:UIPopoverArrowDirectionAny
+                                              animated:YES];
+        
+    } else {
+        
+        [self.presentingViewController presentModalViewController:self.imagePickerController animated:YES];
+        
+    }
+}
+
+- (void)showCameraImagePicker {
+
+#if TARGET_IPHONE_SIMULATOR
+
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Simulator" message:@"Camera not available." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [alert show];
+    
+#elif TARGET_OS_IPHONE
+    
+    self.imagePickerController = [[UIImagePickerController alloc] init];
+    self.imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    self.imagePickerController.delegate = self;
+    self.imagePickerController.allowsEditing = NO;
+
+    [self presentImagePickerController];
+#endif
+
+}
+
+- (void)showGalleryImagePicker {
+    self.imagePickerController = [[UIImagePickerController alloc] init];
+    self.imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    self.imagePickerController.delegate = self;
+    self.imagePickerController.allowsEditing = NO;
+
+    [self presentImagePickerController];
+}
+
+#pragma mark -
+#pragma mark - UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            [self showCameraImagePicker];
+            break;
+        case 1:
+            [self showGalleryImagePicker];
+            break;
     }
 }
 

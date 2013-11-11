@@ -11,3 +11,6 @@
 "GKImoveAndScale" = "Move and Scale";
 "GKIcancel" = "Cancel";
 "GKIuse" = "Choose";
+
+"GKIfromCamera" = "Image from Camera";
+"GKIfromLibrary" = "Image from Library";

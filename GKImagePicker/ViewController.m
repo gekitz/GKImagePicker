@@ -35,16 +35,7 @@
     self.imagePicker.cropSize = CGSizeMake(280, 280);
     self.imagePicker.delegate = self;
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        
-        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker.imagePickerController];
-        [self.popoverController presentPopoverFromRect:btn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
-    } else {
-        
-        [self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
-        
-    }
+    [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
 }
 
 - (void)showNormalPicker:(UIButton *)btn{
@@ -71,17 +62,8 @@
     self.imagePicker.cropSize = CGSizeMake(296, 300);
     self.imagePicker.delegate = self;
 	self.imagePicker.resizeableCropArea = YES;
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        
-        self.popoverController = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker.imagePickerController];
-        [self.popoverController presentPopoverFromRect:btn.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
-    } else {
-        
-        [self presentModalViewController:self.imagePicker.imagePickerController animated:YES];
-        
-    }
+
+    [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
 }
 
 - (void)viewDidLoad
@@ -152,19 +134,6 @@
 
 - (void)imagePicker:(GKImagePicker *)imagePicker pickedImage:(UIImage *)image{
     self.imgView.image = image;
-    [self hideImagePicker];
-}
-
-- (void)hideImagePicker{
-    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
-        
-        [self.popoverController dismissPopoverAnimated:YES];
-        
-    } else {
-        
-        [self.imagePicker.imagePickerController dismissViewControllerAnimated:YES completion:nil];
-        
-    }
 }
 
 # pragma mark -
