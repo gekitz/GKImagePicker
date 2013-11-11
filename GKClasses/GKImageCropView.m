@@ -45,6 +45,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
         frameToCenter.origin.y = 0;
     
     zoomView.frame = frameToCenter;
+//    zoomView.frame = CGRectMake(0, 0, 200, 200);
 }
 
 @end
@@ -131,15 +132,8 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     CGFloat scaleHeight = self.imageToCrop.size.height / self.cropSize.height;
     CGFloat scale = 0.0f;
     
-    if (self.cropSize.width > self.cropSize.height) {
-        scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
-                 MAX(scaleWidth, scaleHeight) :
-                 MIN(scaleWidth, scaleHeight));
-    }else{
-        scale = (self.imageToCrop.size.width < self.imageToCrop.size.height ?
-                 MIN(scaleWidth, scaleHeight) :
-                 MAX(scaleWidth, scaleHeight));
-    }
+    scale = MIN(scaleWidth, scaleHeight);
+
     //extract visible rect from scrollview and scale it
     CGRect visibleRect = [scrollView convertRect:scrollView.bounds toView:imageView];
     return visibleRect = GKScaleRect(visibleRect, scale);
@@ -235,27 +229,28 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
     CGFloat height = self.imageToCrop.size.height;
     CGFloat width = self.imageToCrop.size.width;
     
-    CGFloat faktor = 0.f;
-    CGFloat faktoredHeight = 0.f;
-    CGFloat faktoredWidth = 0.f;
+    CGFloat factor = 0.f, widthFactor = 0.f, heightFactor = 0.f;
+    CGFloat factoredHeight = 0.f;
+    CGFloat factoredWidth = 0.f;
     
-    if(width > height){
-        
-        faktor = width / size.width;
-        faktoredWidth = size.width;
-        faktoredHeight =  height / faktor;
-        
-    } else {
-        
-        faktor = height / size.height;
-        faktoredWidth = width / faktor;
-        faktoredHeight =  size.height;
-    }
+    widthFactor = width / size.width;
+    heightFactor = height / size.height;
+    factor = MIN(widthFactor, heightFactor);
+    factoredWidth = width / factor;
+    factoredHeight = height / factor;
     
     self.cropOverlayView.frame = self.bounds;
     self.scrollView.frame = CGRectMake(xOffset, yOffset, size.width, size.height);
     self.scrollView.contentSize = CGSizeMake(size.width, size.height);
-    self.imageView.frame = CGRectMake(0, floor((size.height - faktoredHeight) * 0.5), faktoredWidth, faktoredHeight);
+    self.imageView.frame = CGRectMake(0, floor((size.height - factoredHeight) * 0.5), factoredWidth, factoredHeight);
+    
+    /* TODO 
+        implement a feature that allows restricting the zoom scale to the max available
+        (based on image's resolution), to prevent pixelation. We simply have to deteremine the
+        max zoom scale and place it here
+     */
+    [self.scrollView setContentOffset:CGPointMake((factoredWidth - size.width) * 0.5, (factoredHeight - size.height) * 0.5)];
+    [self.scrollView setZoomScale:1.0];
 }
 
 #pragma mark -
