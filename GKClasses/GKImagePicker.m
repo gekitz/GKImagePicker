@@ -124,7 +124,7 @@
         
     } else {
         
-        [self.presentingViewController presentModalViewController:self.imagePickerController animated:YES];
+        [self.presentingViewController presentViewController:self.imagePickerController animated:YES completion:nil];
         
     }
 }
