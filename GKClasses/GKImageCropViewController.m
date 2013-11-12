@@ -51,8 +51,8 @@
 
 
 - (void)_setupNavigationBar{
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel 
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                           target:self 
                                                                                           action:@selector(_actionCancel)];
     
@@ -150,6 +150,7 @@
 	// Do any additional setup after loading the view.
     
     self.title = NSLocalizedString(@"GKIchoosePhoto", @"");
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 
     [self _setupNavigationBar];
     [self _setupCropView];
@@ -165,6 +166,12 @@
 - (void)viewDidUnload{
     [super viewDidUnload];
     // Release any retained subviews of the main view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (void)viewWillLayoutSubviews{
