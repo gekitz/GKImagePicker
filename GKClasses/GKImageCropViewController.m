@@ -63,12 +63,30 @@
 }
 
 
+#pragma mark -
+#pragma mark - Crop Rect Normalizing
+
+- (CGSize)normalizedCropSizeForRect:(CGRect)rect
+{
+    CGSize normalizedSize;
+    CGSize maxSize = CGSizeMake(rect.size.width - (2 * TOOLBAR_PADDING),
+                                rect.size.height - (2. * (TOOLBAR_HEIGHT + TOOLBAR_PADDING)));
+    if (self.cropSize.height / self.cropSize.width > maxSize.height / maxSize.width) {
+        normalizedSize = CGSizeMake(self.cropSize.width * maxSize.height / self.cropSize.height,
+                                    maxSize.height);
+    } else {
+        normalizedSize = CGSizeMake(maxSize.width,
+                                    self.cropSize.height * maxSize.width / self.cropSize.width);
+    }
+    return normalizedSize;
+}
+
 - (void)_setupCropView{
     
     self.imageCropView = [[GKImageCropView alloc] initWithFrame:self.view.bounds];
     [self.imageCropView setImageToCrop:sourceImage];
     [self.imageCropView setResizableCropArea:self.resizeableCropArea];
-    [self.imageCropView setCropSize:cropSize];
+    [self.imageCropView setCropSize:[self normalizedCropSizeForRect:self.view.bounds]];
     [self.view addSubview:self.imageCropView];
 }
 

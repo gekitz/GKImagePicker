@@ -29,10 +29,11 @@
 @synthesize ctr;
 @synthesize customCropButton, normalCropButton, resizableButton;
 
+
 - (void)showPicker:(UIButton *)btn{
     
     self.imagePicker = [[GKImagePicker alloc] init];
-    self.imagePicker.cropSize = CGSizeMake(280, 280);
+    self.imagePicker.cropSize = CGSizeMake(320, 496);
     self.imagePicker.delegate = self;
     
     [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
