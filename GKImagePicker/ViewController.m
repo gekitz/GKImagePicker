@@ -52,7 +52,7 @@
         
     } else {
         
-        [self presentModalViewController:self.ctr animated:YES];
+        [self presentViewController:self.ctr animated:YES completion:nil];
         
     }
     

@@ -113,7 +113,7 @@
     [[self.cancelButton titleLabel] setFont:[self buttonFont]];
     [self.cancelButton setFrame:CGRectMake(HORIZONTAL_TEXT_PADDING, 0, buttonSize.width, buttonSize.height)];
     [self.cancelButton setTitle:NSLocalizedString(@"Cancel", @"Cancel") forState:UIControlStateNormal];
-    [self.cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlEventAllEvents];
+    [self.cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.cancelButton  addTarget:self action:@selector(_actionCancel) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -126,7 +126,7 @@
     [[self.useButton titleLabel] setFont:[self buttonFont]];
     [self.useButton setFrame:CGRectMake(self.view.frame.size.width - (buttonSize.width + HORIZONTAL_TEXT_PADDING), 0, buttonSize.width, buttonSize.height)];
     [self.useButton setTitle:NSLocalizedString(@"Use",@"Use") forState:UIControlStateNormal];
-    [self.useButton setTitleColor:[UIColor whiteColor] forState:UIControlEventAllEvents];
+    [self.useButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.useButton  addTarget:self action:@selector(_actionUse) forControlEvents:UIControlEventTouchUpInside];
 }
 

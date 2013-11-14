@@ -61,17 +61,6 @@
 //    UIRectFill(CGRectMake(widthSpan + 2, heightSpan + 2, self.cropSize.width - 4, self.cropSize.height - 4));
     UIRectFill(CGRectMake(widthSpan + 1, heightSpan + 1, self.cropSize.width - 2, self.cropSize.height - 2));
     
-    
-    
-    if (heightSpan > 30 && (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)) {
-        
-        [[UIColor whiteColor] set];
-        [NSLocalizedString(@"Move and Scale", @"Move and Scale") drawInRect:CGRectMake(10, (height - heightSpan) + (heightSpan / 2 - 20 / 2) , width - 20, 20) 
-                                                   withFont:[UIFont boldSystemFontOfSize:20] 
-                                              lineBreakMode:NSLineBreakByTruncatingTail
-                                                  alignment:NSTextAlignmentCenter];
-        
-    }
 }
 
 @end
