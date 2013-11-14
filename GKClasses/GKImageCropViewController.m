@@ -93,11 +93,22 @@
 - (CGSize)sizeForString:(NSString *)string withFont:(UIFont *)font{
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     attributes[NSFontAttributeName] = font;
-    CGRect labelRect = [string boundingRectWithSize:CGSizeMake(320.f, TOOLBAR_HEIGHT)
-                                            options:NSStringDrawingUsesLineFragmentOrigin
-                                         attributes:attributes
-                                            context:nil];
-    return CGSizeMake(labelRect.size.width, TOOLBAR_HEIGHT);
+    
+    CGSize constrainedSize = CGSizeMake(320.f, TOOLBAR_HEIGHT);
+    CGSize neededSize;
+    if ([string respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
+        neededSize = [string boundingRectWithSize:constrainedSize
+                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                       attributes:attributes
+                                          context:nil].size;
+    } else {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED <= 60000
+        neededSize = [string sizeWithFont:font
+                        constrainedToSize:constrainedSize
+                            lineBreakMode:NSLineBreakByTruncatingMiddle];
+#endif
+    }
+    return CGSizeMake(neededSize.width, TOOLBAR_HEIGHT);
 }
 
 - (UIFont *)buttonFont
