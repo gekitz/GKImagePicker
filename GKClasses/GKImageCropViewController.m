@@ -95,19 +95,18 @@
     attributes[NSFontAttributeName] = font;
     
     CGSize constrainedSize = CGSizeMake(320.f, TOOLBAR_HEIGHT);
-    CGSize neededSize;
-    if ([string respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
-        neededSize = [string boundingRectWithSize:constrainedSize
-                                          options:NSStringDrawingUsesLineFragmentOrigin
-                                       attributes:attributes
-                                          context:nil].size;
-    } else {
-#if __IPHONE_OS_VERSION_MAX_ALLOWED <= 60000
-        neededSize = [string sizeWithFont:font
+    CGSize neededSize = CGSizeMake(0, 0);
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
+    neededSize = [string boundingRectWithSize:constrainedSize
+                                      options:NSStringDrawingUsesLineFragmentOrigin
+                                   attributes:attributes
+                                      context:nil].size;
+#else
+    neededSize = [string sizeWithFont:font
                         constrainedToSize:constrainedSize
-                            lineBreakMode:NSLineBreakByTruncatingMiddle];
+                        lineBreakMode:NSLineBreakByTruncatingMiddle];
 #endif
-    }
     return CGSizeMake(neededSize.width, TOOLBAR_HEIGHT);
 }
 
