@@ -1,4 +1,4 @@
-### GKImagePicker
+### AKImagePicker 
 
 A fork of [GKImagePicker](https://github.com/gekitz/GKImagePicker) by [@gekitz](http://www.twitter.com/gekitz), taking off in a slightly different tangent. Notable changes to it are:
 - Utilizes an image cropper similar to Apple's own iOS 7 redesign
@@ -6,7 +6,7 @@ A fork of [GKImagePicker](https://github.com/gekitz/GKImagePicker) by [@gekitz](
 
 ### How to use it
 
-- Follow the instructions found [here](https://github.com/gekitz/GKImagePicker)
+- Follow the instructions found [here](https://github.com/gekitz/GKImagePicker).
 
 ### Sample Code
 
@@ -15,8 +15,8 @@ A fork of [GKImagePicker](https://github.com/gekitz/GKImagePicker) by [@gekitz](
     self.imagePicker.delegate = self;
     
     [self.imagePicker showActionSheetOnViewController:self onPopoverFromView:btn];
-	
-	### License
+
+### License
 Under MIT. See license file for details.
 
 
