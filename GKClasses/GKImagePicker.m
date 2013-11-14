@@ -100,9 +100,9 @@
     
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
                                                              delegate:(id)self
-                                                    cancelButtonTitle:NSLocalizedString(@"GKIcancel", @"")
+                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel")
                                                destructiveButtonTitle:nil
-                                                    otherButtonTitles:NSLocalizedString(@"GKIfromCamera", @""), NSLocalizedString(@"GKIfromLibrary", @""), nil];
+                                                    otherButtonTitles:NSLocalizedString(@"Image from Camera", @"Image from Camera"), NSLocalizedString(@"Image from Library", @"Image from Library"), nil];
     actionSheet.delegate = self;
     
     if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {

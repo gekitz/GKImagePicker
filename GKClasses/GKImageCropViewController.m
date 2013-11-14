@@ -56,7 +56,7 @@
                                                                                           target:self 
                                                                                           action:@selector(_actionCancel)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"GKIuse", @"") 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Use", @"Use")
                                                                               style:UIBarButtonItemStyleBordered 
                                                                              target:self 
                                                                              action:@selector(_actionUse)];
@@ -106,26 +106,26 @@
 }
 
 - (void)_setupCancelButton{
-    CGSize buttonSize = [self sizeForString:NSLocalizedString(@"GKIcancel",@"")
+    CGSize buttonSize = [self sizeForString:NSLocalizedString(@"Cancel", @"Cancel")
                                    withFont:[self buttonFont]];
     
     self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [[self.cancelButton titleLabel] setFont:[self buttonFont]];
     [self.cancelButton setFrame:CGRectMake(HORIZONTAL_TEXT_PADDING, 0, buttonSize.width, buttonSize.height)];
-    [self.cancelButton setTitle:NSLocalizedString(@"GKIcancel",@"") forState:UIControlStateNormal];
+    [self.cancelButton setTitle:NSLocalizedString(@"Cancel", @"Cancel") forState:UIControlStateNormal];
     [self.cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlEventAllEvents];
     [self.cancelButton  addTarget:self action:@selector(_actionCancel) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)_setupUseButton{
-    CGSize buttonSize = [self sizeForString:NSLocalizedString(@"GKIuse",@"")
+    CGSize buttonSize = [self sizeForString:NSLocalizedString(@"Use",@"Use")
                                    withFont:[self buttonFont]];
     
     self.useButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [[self.useButton titleLabel] setFont:[self buttonFont]];
     [self.useButton setFrame:CGRectMake(self.view.frame.size.width - (buttonSize.width + HORIZONTAL_TEXT_PADDING), 0, buttonSize.width, buttonSize.height)];
-    [self.useButton setTitle:NSLocalizedString(@"GKIuse",@"") forState:UIControlStateNormal];
+    [self.useButton setTitle:NSLocalizedString(@"Use",@"Use") forState:UIControlStateNormal];
     [self.useButton setTitleColor:[UIColor whiteColor] forState:UIControlEventAllEvents];
     [self.useButton  addTarget:self action:@selector(_actionUse) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -167,7 +167,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.title = NSLocalizedString(@"GKIchoosePhoto", @"");
+    self.title = NSLocalizedString(@"Choose Photo", @"Choose Photo");
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
 
     [self _setupNavigationBar];

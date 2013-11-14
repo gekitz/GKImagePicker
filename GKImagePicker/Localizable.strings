@@ -6,11 +6,10 @@
   Copyright (c) 2012 Aurora Apps. All rights reserved.
 */
 
-"GKIchoosePhoto" = "Choose Photo";
-"GKIuse" = "Use";
-"GKImoveAndScale" = "Move and Scale";
-"GKIcancel" = "Cancel";
-"GKIuse" = "Choose";
+"Choose Photo" = "Choose Photo";
+"Use" = "Use";
+"Move and Scale" = "Move and Scale";
+"Cancel" = "Cancel";
 
-"GKIfromCamera" = "Image from Camera";
-"GKIfromLibrary" = "Image from Library";
+"Image from Camera" = "Image from Camera";
+"Image from Library" = "Image from Library";
