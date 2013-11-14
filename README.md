@@ -1,4 +1,4 @@
-### AKImagePicker 
+### GKImagePicker 
 
 A fork of [GKImagePicker](https://github.com/gekitz/GKImagePicker) by [@gekitz](http://www.twitter.com/gekitz), taking off in a slightly different tangent. Notable changes to it are:
 - Utilizes an image cropper similar to Apple's own iOS 7 redesign
