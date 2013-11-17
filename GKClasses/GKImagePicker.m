@@ -112,7 +112,11 @@
     if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
         [actionSheet showFromRect:self.popoverView.frame inView:self.presentingViewController.view animated:YES];
     } else {
-        [actionSheet showInView:self.presentingViewController.view];
+        if (self.presentingViewController.navigationController.toolbar) {
+            [actionSheet showFromToolbar:self.presentingViewController.navigationController.toolbar];
+        } else {
+            [actionSheet showInView:self.presentingViewController.view];
+        }
     }
 }
 
