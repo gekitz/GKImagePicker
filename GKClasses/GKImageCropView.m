@@ -174,6 +174,7 @@ static CGRect GKScaleRect(CGRect rect, CGFloat scale)
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.clipsToBounds = YES;
 
         self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor blackColor];
