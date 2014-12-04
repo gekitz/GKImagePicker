@@ -95,7 +95,7 @@
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     attributes[NSFontAttributeName] = font;
     
-    CGSize constrainedSize = CGSizeMake(320.f, TOOLBAR_HEIGHT);
+    CGSize constrainedSize = CGSizeMake(self.view.frame.size.width, TOOLBAR_HEIGHT);
     CGSize neededSize = CGSizeMake(0, 0);
 
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
@@ -207,7 +207,7 @@
     [super viewWillLayoutSubviews];
     
     self.imageCropView.frame = self.view.bounds;
-    self.toolbarView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - TOOLBAR_HEIGHT, 320, TOOLBAR_HEIGHT);
+    self.toolbarView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - TOOLBAR_HEIGHT, self.view.frame.size.width, TOOLBAR_HEIGHT);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
