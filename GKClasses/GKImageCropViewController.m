@@ -38,7 +38,11 @@
 
 
 - (void)_actionCancel{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController && self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:NULL];
+    }
 }
 
 
@@ -224,7 +228,12 @@
     [super viewWillLayoutSubviews];
     
     self.imageCropView.frame = self.view.bounds;
-    self.toolbar.frame = CGRectMake(0, CGRectGetHeight(self.view.frame) - 54, 320, 54);
+    CGSize size = [[UIScreen mainScreen] bounds].size;
+    UIEdgeInsets insets = UIEdgeInsetsMake(0, 0, 0, 0);
+    if (@available(iOS 11.0, *)) {
+       insets = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
+    }
+    self.toolbar.frame = CGRectMake(0, size.height - 54 - insets.bottom, size.width, 54);
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
